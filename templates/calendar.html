@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Calendar View</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+        <th>Sun</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for week in dates|slice:":7" %}
+      <tr>
+        {% for day in week %}
+        {% ifequal day.day 1 %}
+        {% for i in day|date:"w" %}
+        <td>&nbsp;</td>
+        {% endfor %}
+        {% endifequal %}
+        <td{% ifequal day|date:"d" date.today|date:"d" %} class="today"{% endifequal %}>
+          {{ day.day }}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
